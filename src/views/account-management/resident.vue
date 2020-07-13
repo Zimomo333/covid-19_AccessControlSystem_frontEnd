@@ -125,7 +125,7 @@
 </template>
 
 <script>
-  import { deleteAdmin, deleteResident, fetchResident, lockResident, unlockResident } from '@/api/account'
+import { deleteResident, fetchResident, lockResident, unlockResident } from '@/api/account'
 import { fetchRecord } from '@/api/record'
 
 import { parseTime } from '@/utils'
