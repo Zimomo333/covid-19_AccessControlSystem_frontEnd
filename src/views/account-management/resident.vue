@@ -137,10 +137,10 @@ export default {
   components: { Pagination },
   filters: {
     typeFilter(status) {
-      if (status > 5) { return 'danger' } else { return 'success' }
+      if (status >= 3) { return 'danger' } else { return 'success' }
     },
     statusFilter(status) {
-      if (status > 5) { return 'unhealthy' } else { return 'healthy' }
+      if (status >= 3) { return 'unhealthy' } else { return 'healthy' }
     },
     sexFilter(sex) {
       if (sex === 0) { return '未知' } else if (sex === 1) { return '男' } else { return '女' }
