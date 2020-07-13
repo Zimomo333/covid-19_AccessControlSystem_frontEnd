@@ -96,6 +96,27 @@ export const constantRoutes = [
     ]
   },
 
+  {
+    path: '/analysis',
+    component: Layout,
+    redirect: '/analysis/health',
+    name: 'Analysis',
+    meta: { title: '统计分析', icon: 'el-icon-s-data' },
+    children: [
+      {
+        path: 'health',
+        name: 'Health',
+        component: () => import('@/views/analysis/health'),
+        meta: { title: '健康统计', icon: 'el-icon-s-help' }
+      },
+      {
+        path: 'record',
+        name: 'recordAnalysis',
+        component: () => import('@/views/analysis/record'),
+        meta: { title: '出入统计', icon: 'el-icon-s-marketing' }
+      }
+    ]
+  },
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
