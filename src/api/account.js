@@ -80,6 +80,30 @@ export function fetchResident(query) {
   })
 }
 
+export function deleteResident(query) {
+  return request({
+    url: '/account/resident/delete',
+    method: 'post',
+    params: query
+  })
+}
+
+export function lockResident(query) {
+  return request({
+    url: '/account/resident/lock',
+    method: 'post',
+    params: query
+  })
+}
+
+export function unlockResident(query) {
+  return request({
+    url: '/account/resident/unlock',
+    method: 'post',
+    params: query
+  })
+}
+
 export function fetchInfo(user_id) {
   return request({
     url: '/account/resident/info',

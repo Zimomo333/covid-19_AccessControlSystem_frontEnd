@@ -232,12 +232,40 @@ module.exports = [
   },
 
   {
-    url: '/account/resident/update',
+    url: '/account/resident/delete',
     type: 'post',
     response: _ => {
       return {
         code: 20000,
-        data: 'success'
+        data: {
+          result: 0
+        }
+      }
+    }
+  },
+
+  {
+    url: '/account/resident/lock',
+    type: 'post',
+    response: _ => {
+      return {
+        code: 20000,
+        data: {
+          result: 0
+        }
+      }
+    }
+  },
+
+  {
+    url: '/account/resident/unlock',
+    type: 'post',
+    response: _ => {
+      return {
+        code: 20000,
+        data: {
+          result: 0
+        }
       }
     }
   },

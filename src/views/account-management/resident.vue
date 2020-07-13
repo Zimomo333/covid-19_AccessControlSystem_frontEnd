@@ -125,7 +125,7 @@
 </template>
 
 <script>
-import { fetchResident } from '@/api/account'
+  import { deleteAdmin, deleteResident, fetchResident, lockResident, unlockResident } from '@/api/account'
 import { fetchRecord } from '@/api/record'
 
 import { parseTime } from '@/utils'
@@ -200,11 +200,45 @@ export default {
       this.getList()
     },
     handleModifyStatus(row, is_locked) {
-      this.$message({
-        message: '操作Success',
-        type: 'success'
-      })
-      row.is_locked = is_locked
+      if (is_locked) {
+        lockResident(row.id).then(res => {
+          if (res.data.result === 0) {
+            this.$notify({
+              title: '成功',
+              message: '锁定成功',
+              type: 'success',
+              duration: 2000
+            })
+            row.is_locked = is_locked
+          } else {
+            this.$notify({
+              title: '失败',
+              message: '锁定失败',
+              type: 'error',
+              duration: 2000
+            })
+          }
+        })
+      } else {
+        unlockResident(row.id).then(res => {
+          if (res.data.result === 0) {
+            this.$notify({
+              title: '成功',
+              message: '解锁成功',
+              type: 'success',
+              duration: 2000
+            })
+            row.is_locked = is_locked
+          } else {
+            this.$notify({
+              title: '失败',
+              message: '解锁失败',
+              type: 'error',
+              duration: 2000
+            })
+          }
+        })
+      }
     },
     sortChange(data) {
       const { prop, order } = data
@@ -221,13 +255,24 @@ export default {
       this.handleFilter()
     },
     handleDelete(row, index) {
-      this.$notify({
-        title: 'Success',
-        message: 'Delete Successfully',
-        type: 'success',
-        duration: 2000
+      deleteResident(row.id).then(res => {
+        if (res.data.result === 0) {
+          this.$notify({
+            title: '成功',
+            message: '删除成功',
+            type: 'success',
+            duration: 2000
+          })
+          this.list.splice(index, 1)
+        } else {
+          this.$notify({
+            title: '失败',
+            message: '删除失败',
+            type: 'error',
+            duration: 2000
+          })
+        }
       })
-      this.list.splice(index, 1)
     },
     handleRecord(id) {
       fetchRecord(id).then(response => {
