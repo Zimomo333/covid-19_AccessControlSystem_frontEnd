@@ -2,9 +2,9 @@
   <div class="app-container">
     <div class="filter-container">
       <el-input v-model="listQuery.id" placeholder="Id" style="width: 100px;" class="filter-item" @keyup.enter.native="handleFilter" />
-      <el-input v-model="listQuery.resident_id" placeholder="resident_id" style="width: 100px;" class="filter-item" @keyup.enter.native="handleFilter" />
-      <el-input v-model="listQuery.inspector_id" placeholder="Inspector_id" style="width: 130px;" class="filter-item" @keyup.enter.native="handleFilter" />
-      <el-select v-model="listQuery.health_query" placeholder="Temperature" clearable style="width: 150px" class="filter-item">
+      <el-input v-model="listQuery.resident_id" placeholder="住户id" style="width: 100px;" class="filter-item" @keyup.enter.native="handleFilter" />
+      <el-input v-model="listQuery.inspector_id" placeholder="检查员id" style="width: 130px;" class="filter-item" @keyup.enter.native="handleFilter" />
+      <el-select v-model="listQuery.health_query" placeholder="健康状况" clearable style="width: 150px" class="filter-item">
         <el-option v-for="item in healthOptions" :key="item" :label="item" :value="item" />
       </el-select>
       <el-date-picker
@@ -38,22 +38,22 @@
           <span>{{ row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Temperature" width="120px" align="center">
+      <el-table-column label="体温" width="150px" align="center">
         <template slot-scope="{row}">
           <span>{{ row.temperature }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Date" prop="time" sortable width="150px" align="center">
+      <el-table-column label="日期时间" prop="time" sortable width="250px" align="center">
         <template slot-scope="{row}">
           <span>{{ row.time | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Resident_id(点击查看住户)" width="200px" align="center">
+      <el-table-column label="住户id(点击查看住户)" width="250px" align="center">
         <template slot-scope="{row}">
           <span class="link-type" @click="handleInfo(row.resident_id)">{{ row.resident_id }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Inspectors_id" width="150px" align="center">
+      <el-table-column label="检查员id" width="250px" align="center">
         <template slot-scope="{row}">
           <span>{{ row.inspector_id }}</span>
         </template>

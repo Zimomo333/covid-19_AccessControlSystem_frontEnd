@@ -3,10 +3,10 @@
     <div class="filter-container">
       <el-input v-model="listQuery.id" placeholder="Id" style="width: 100px;" class="filter-item" @keyup.enter.native="handleFilter" />
       <el-input v-model="listQuery.name" placeholder="姓名" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
-      <el-select v-model="listQuery.locked_query" placeholder="is_locked" clearable style="width: 130px" class="filter-item">
+      <el-select v-model="listQuery.locked_query" placeholder="锁状态" clearable style="width: 130px" class="filter-item">
         <el-option v-for="item in lockedOptions" :key="item" :label="item" :value="item" />
       </el-select>
-      <el-select v-model="listQuery.health_query" placeholder="health_status" clearable style="width: 150px" class="filter-item">
+      <el-select v-model="listQuery.health_query" placeholder="健康状况" clearable style="width: 150px" class="filter-item">
         <el-option v-for="item in healthOptions" :key="item" :label="item" :value="item" />
       </el-select>
       <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
@@ -32,24 +32,24 @@
           <span>{{ row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="姓名(点击查看详情)" width="200px" align="center">
+      <el-table-column label="姓名(点击查看详情)" width="300px" align="center">
         <template slot-scope="{row}">
           <span class="link-type" @click="handleInfo(row)">{{ row.name }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="出入记录(点击查看近况)" align="center" width="200px">
+      <el-table-column label="出入次数(点击查看近况)" align="center" width="300px">
         <template slot-scope="{row}">
           <span class="link-type" @click="handleRecord(row.id)">{{ row.access_times }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="健康状况" class-name="status-col" align="center" width="100">
+      <el-table-column label="健康状况" class-name="status-col" align="center" width="200">
         <template slot-scope="{row}">
           <el-tag :type="row.health_status | typeFilter">
             {{ row.health_status | statusFilter }}
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center" width="200" class-name="small-padding fixed-width">
+      <el-table-column label="操作" align="center" width="300" class-name="small-padding fixed-width">
         <template slot-scope="{row,$index}">
           <el-button v-if="!row.is_locked" size="mini" type="success" @click="handleModifyStatus(row,true)">
             锁定

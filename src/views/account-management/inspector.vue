@@ -61,7 +61,7 @@
 
     <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
-    <el-dialog :title="'Create'" :visible.sync="dialogCreateVisible">
+    <el-dialog :title="'添加检查员'" :visible.sync="dialogCreateVisible">
       <el-form ref="createForm" :rules="rules" :model="temp" label-position="right" label-width="90px" style="width: 400px; margin-left:50px;">
         <el-form-item label="用户名" prop="username">
           <el-input v-model="temp.username" />
@@ -83,7 +83,7 @@
       </div>
     </el-dialog>
 
-    <el-dialog :title="'Update'" :visible.sync="dialogUpdateVisible">
+    <el-dialog :title="'修改密码'" :visible.sync="dialogUpdateVisible">
       <el-form ref="updateForm" :rules="rules" :model="temp" label-position="right" label-width="90px" style="width: 400px; margin-left:50px;">
         <el-form-item label="Id">
           <span style="margin-left:15px;">{{ temp.id }}</span>

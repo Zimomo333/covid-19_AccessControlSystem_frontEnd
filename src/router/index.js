@@ -51,7 +51,7 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      meta: { title: '仪表板', icon: 'dashboard' }
     }]
   },
 
@@ -60,25 +60,25 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/account-management/resident',
     name: 'AccountManagement',
-    meta: { title: '账号管理', icon: 'el-icon-s-help' },
+    meta: { title: '账号管理', icon: 'el-icon-user-solid' },
     children: [
       {
         path: 'resident',
         name: 'Resident',
         component: () => import('@/views/account-management/resident'),
-        meta: { title: '住户', icon: 'table' }
+        meta: { title: '住户', icon: 'el-icon-user-solid' }
       },
       {
         path: 'inspector',
         name: 'Inspector',
         component: () => import('@/views/account-management/inspector'),
-        meta: { title: '检查员', icon: 'table' }
+        meta: { title: '检查员', icon: 'el-icon-user-solid' }
       },
       {
         path: 'admin',
         name: 'Admin',
         component: () => import('@/views/account-management/admin'),
-        meta: { title: '管理员', icon: 'table' }
+        meta: { title: '管理员', icon: 'el-icon-user-solid' }
       }
     ]
   },
@@ -91,7 +91,7 @@ export const constantRoutes = [
         path: 'index',
         name: 'Record',
         component: () => import('@/views/record/index'),
-        meta: { title: '出入记录', icon: 'table' }
+        meta: { title: '出入记录', icon: 'el-icon-document' }
       }
     ]
   },
