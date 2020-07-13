@@ -17,6 +17,8 @@ import '@/permission' // permission control
 
 import * as filters from './filters' // global filters
 
+import echarts from 'echarts'
+
 // register global utility filters
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
@@ -41,6 +43,8 @@ Vue.use(ElementUI, { locale })
 // Vue.use(ElementUI)
 
 Vue.config.productionTip = false
+
+Vue.prototype.$echarts = echarts
 
 new Vue({
   el: '#app',
