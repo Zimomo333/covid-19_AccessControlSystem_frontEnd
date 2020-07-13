@@ -8,7 +8,7 @@
         <el-option v-for="item in healthOptions" :key="item" :label="item" :value="item" />
       </el-select>
       <el-date-picker
-        v-model="listQuery.date_query"
+        v-model="date_query"
         type="datetimerange"
         value-format="timestamp"
         range-separator="至"
@@ -147,10 +147,12 @@ export default {
         id: '',
         resident_id: '',
         inspector_id: '',
-        date_query: '',
+        date_begin: '',
+        date_end: '',
         health_query: '',
         sort: '+id'
       },
+      date_query: '',
       healthOptions: ['healthy', 'unhealthy'],
       temp: null,
       dialogInfoVisible: false,
@@ -160,6 +162,12 @@ export default {
         title: [{ required: true, message: 'title is required', trigger: 'blur' }]
       },
       downloadLoading: false
+    }
+  },
+  watch: {
+    date_query() {
+      this.listQuery.date_begin = this.date_query[0]
+      this.listQuery.date_end = this.date_query[1]
     }
   },
   created() {
