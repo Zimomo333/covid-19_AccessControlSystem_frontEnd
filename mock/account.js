@@ -186,7 +186,9 @@ module.exports = [
     response: _ => {
       return {
         code: 20000,
-        data: 'success'
+        data: {
+          result: 0
+        }
       }
     }
   },

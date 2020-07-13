@@ -261,16 +261,25 @@ export default {
       })
     },
     handleResetOpenId(row) {
-      resetOpenId(row.id).then(() => {
-        const index = this.list.findIndex(v => v.id === row.id)
-        row.open_id = ''
-        this.list.splice(index, 1, row)
-        this.$notify({
-          title: 'Success',
-          message: 'Reset OpenId Successfully',
-          type: 'success',
-          duration: 2000
-        })
+      resetOpenId(row.id).then(res => {
+        if (res.data.result === 0) {
+          this.$notify({
+            title: '成功',
+            message: '初始化成功',
+            type: 'success',
+            duration: 2000
+          })
+          const index = this.list.findIndex(v => v.id === row.id)
+          row.open_id = ''
+          this.list.splice(index, 1, row)
+        } else {
+          this.$notify({
+            title: '失败',
+            message: '初始化失败',
+            type: 'error',
+            duration: 2000
+          })
+        }
       })
     },
     updateData() {
