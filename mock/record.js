@@ -20,7 +20,6 @@ for (let i = 0; i < 10; i++) {
     username: '@first',
     time: +Mock.Random.date('T'),
     temperature: '@integer(37, 39)',
-    user_id: '@increment',
     inspector_id: '@increment'
   }))
 }

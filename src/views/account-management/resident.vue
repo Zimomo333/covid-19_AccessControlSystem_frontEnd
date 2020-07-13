@@ -109,13 +109,14 @@
 
     <el-dialog :visible.sync="dialogRcVisible" title="最近出入记录">
       <el-table :data="rcData" border fit highlight-current-row style="width: 100%">
-        <el-table-column label="Date" prop="time" align="center">
+        <el-table-column prop="id" label="记录id" align="center" />
+        <el-table-column label="日期时间" prop="time" align="center">
           <template slot-scope="{row}">
             <span>{{ row.time | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="temperature" label="Temperature" align="center" />
-        <el-table-column prop="inspector_id" label="Inspectors_id" align="center" />
+        <el-table-column prop="temperature" label="温度" align="center" />
+        <el-table-column prop="inspector_id" label="检查员id" align="center" />
       </el-table>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="dialogRcVisible = false">Confirm</el-button>
