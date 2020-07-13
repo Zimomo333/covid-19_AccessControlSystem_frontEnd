@@ -63,13 +63,13 @@
 
     <el-dialog :title="'Create'" :visible.sync="dialogCreateVisible">
       <el-form ref="createForm" :rules="rules" :model="temp" label-position="right" label-width="90px" style="width: 400px; margin-left:50px;">
-        <el-form-item label="用户名" prop="title">
+        <el-form-item label="用户名" prop="username">
           <el-input v-model="temp.username" />
         </el-form-item>
-        <el-form-item label="密码" prop="title">
-          <el-input v-model="temp.password" />
+        <el-form-item label="密码" prop="new_password">
+          <el-input v-model="temp.new_password" />
         </el-form-item>
-        <el-form-item label="确认密码" prop="title">
+        <el-form-item label="确认密码" prop="confirm_password">
           <el-input v-model="temp.confirm_password" />
         </el-form-item>
       </el-form>
@@ -91,13 +91,13 @@
         <el-form-item label="用户名">
           <span style="margin-left:15px;">{{ temp.username }}</span>
         </el-form-item>
-        <el-form-item label="当前密码" prop="title">
-          <el-input v-model="temp.password" />
+        <el-form-item label="旧密码" prop="old_password">
+          <el-input v-model="temp.old_password" />
         </el-form-item>
-        <el-form-item label="新密码" prop="title">
+        <el-form-item label="新密码" prop="new_password">
           <el-input v-model="temp.new_password" />
         </el-form-item>
-        <el-form-item label="确认密码" prop="title">
+        <el-form-item label="确认密码" prop="confirm_password">
           <el-input v-model="temp.confirm_password" />
         </el-form-item>
       </el-form>
@@ -115,7 +115,7 @@
 </template>
 
 <script>
-import { fetchInspector, createInspector, updateInspector, resetOpenId } from '@/api/account'
+import { fetchInspector, createInspector, updateInspector, deleteInspector, resetOpenId } from '@/api/account'
 import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
@@ -123,6 +123,13 @@ export default {
   name: 'ComplexTable',
   components: { Pagination },
   data() {
+    const validatePassword = (rule, value, callback) => {
+      if (value !== this.temp.new_password) {
+        callback(new Error('两次密码不一致'))
+      } else {
+        callback()
+      }
+    }
     return {
       tableKey: 0,
       list: null,
@@ -138,16 +145,17 @@ export default {
       temp: {
         id: undefined,
         username: undefined,
-        password: undefined,
+        old_password: undefined,
         new_password: undefined,
         confirm_password: undefined
       },
       dialogCreateVisible: false,
       dialogUpdateVisible: false,
       rules: {
-        type: [{ required: true, message: 'type is required', trigger: 'change' }],
-        timestamp: [{ type: 'date', required: true, message: 'timestamp is required', trigger: 'change' }],
-        title: [{ required: true, message: 'title is required', trigger: 'blur' }]
+        username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+        old_password: [{ required: true, message: '请输入旧密码', trigger: 'blur' }],
+        new_password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+        confirm_password: [{ required: true, trigger: 'blur', validator: validatePassword }]
       },
       downloadLoading: false
     }
@@ -189,7 +197,9 @@ export default {
     resetTemp() {
       this.temp = {
         id: undefined,
-        password: undefined,
+        username: undefined,
+        old_password: undefined,
+        new_password: undefined,
         confirm_password: undefined
       }
     },
@@ -203,18 +213,42 @@ export default {
     createData() {
       this.$refs['createForm'].validate((valid) => {
         if (valid) {
-          this.temp.id = parseInt(Math.random() * 100) + 1024 // mock a id
-          this.temp.username = 'lzh333'
-          this.temp.password = 'lzh7178'
-          createInspector(this.temp).then(() => {
-            this.list.unshift(this.temp) // 向数组首插入
-            this.dialogUpdateVisible = false
-            this.$notify({
-              title: 'Success',
-              message: 'Created Successfully',
-              type: 'success',
-              duration: 2000
-            })
+          createInspector(this.temp).then(res => {
+            var result = res.data.result
+            if (result === 0) {
+              this.temp.id = res.data.id
+              this.temp.new_password = undefined
+              this.temp.confirm_password = undefined
+              this.list.unshift(this.temp) // 向数组首插入
+              this.dialogCreateVisible = false
+              this.$notify({
+                title: '成功',
+                message: '添加成功',
+                type: 'success',
+                duration: 2000
+              })
+            } else if (result === 1) {
+              this.$notify({
+                title: '失败',
+                message: '用户名已存在',
+                type: 'error',
+                duration: 2000
+              })
+            } else if (result === 2) {
+              this.$notify({
+                title: '失败',
+                message: '两次密码不一致',
+                type: 'error',
+                duration: 2000
+              })
+            } else if (result === 3) {
+              this.$notify({
+                title: '失败',
+                message: '读写错误',
+                type: 'error',
+                duration: 2000
+              })
+            }
           })
         }
       })
@@ -242,29 +276,61 @@ export default {
     updateData() {
       this.$refs['updateForm'].validate((valid) => {
         if (valid) {
-          const tempData = Object.assign({}, this.temp)
-          updateInspector(tempData).then(() => {
-            const index = this.list.findIndex(v => v.id === this.temp.id)
-            this.list.splice(index, 1, this.temp)
-            this.dialogUpdateVisible = false
-            this.$notify({
-              title: 'Success',
-              message: 'Update Successfully',
-              type: 'success',
-              duration: 2000
-            })
+          updateInspector(this.temp).then(res => {
+            var result = res.data.result
+            if (result === 0) {
+              this.dialogUpdateVisible = false
+              this.$notify({
+                title: '成功',
+                message: '修改成功',
+                type: 'success',
+                duration: 2000
+              })
+            } else if (result === 1) {
+              this.$notify({
+                title: '失败',
+                message: '两次密码不一致',
+                type: 'error',
+                duration: 2000
+              })
+            } else if (result === 2) {
+              this.$notify({
+                title: '失败',
+                message: '旧密码不正确',
+                type: 'error',
+                duration: 2000
+              })
+            } else if (result === 3) {
+              this.$notify({
+                title: '失败',
+                message: '读写错误',
+                type: 'error',
+                duration: 2000
+              })
+            }
           })
         }
       })
     },
     handleDelete(row, index) {
-      this.$notify({
-        title: 'Success',
-        message: 'Delete Successfully',
-        type: 'success',
-        duration: 2000
+      deleteInspector(row.id).then(res => {
+        if (res.data.result === 0) {
+          this.$notify({
+            title: '成功',
+            message: '删除成功',
+            type: 'success',
+            duration: 2000
+          })
+          this.list.splice(index, 1)
+        } else {
+          this.$notify({
+            title: '失败',
+            message: '删除失败',
+            type: 'error',
+            duration: 2000
+          })
+        }
       })
-      this.list.splice(index, 1)
     },
     handleDownload() {
       this.downloadLoading = true

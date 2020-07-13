@@ -56,6 +56,14 @@ export function updateInspector(data) {
   })
 }
 
+export function deleteInspector(id) {
+  return request({
+    url: '/account/inspector/delete',
+    method: 'post',
+    params: id
+  })
+}
+
 export function resetOpenId(id) {
   return request({
     url: '/account/inspector/reset-openid',

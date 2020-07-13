@@ -168,6 +168,19 @@ module.exports = [
   },
 
   {
+    url: '/account/inspector/delete',
+    type: 'post',
+    response: _ => {
+      return {
+        code: 20000,
+        data: {
+          result: 0
+        }
+      }
+    }
+  },
+
+  {
     url: '/account/inspector/reset-openid',
     type: 'post',
     response: _ => {
