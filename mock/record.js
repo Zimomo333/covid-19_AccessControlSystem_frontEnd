@@ -39,6 +39,19 @@ module.exports = [
   },
 
   {
+    url: '/record/delete',
+    type: 'post',
+    response: _ => {
+      return {
+        code: 20000,
+        data: {
+          result: 0
+        }
+      }
+    }
+  },
+
+  {
     url: '/record/list',
     type: 'get',
     response: config => {

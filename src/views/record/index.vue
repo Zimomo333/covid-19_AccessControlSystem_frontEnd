@@ -113,7 +113,7 @@
 </template>
 
 <script>
-import { fetchRecordList } from '@/api/record'
+import { deleteRecord, fetchRecordList } from '@/api/record'
 import { fetchInfo } from '@/api/account'
 import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
@@ -197,13 +197,24 @@ export default {
       this.handleFilter()
     },
     handleDelete(row, index) {
-      this.$notify({
-        title: 'Success',
-        message: 'Delete Successfully',
-        type: 'success',
-        duration: 2000
+      deleteRecord(row.id).then(res => {
+        if (res.data.result === 0) {
+          this.$notify({
+            title: '成功',
+            message: '删除成功',
+            type: 'success',
+            duration: 2000
+          })
+          this.list.splice(index, 1)
+        } else {
+          this.$notify({
+            title: '失败',
+            message: '删除失败',
+            type: 'error',
+            duration: 2000
+          })
+        }
       })
-      this.list.splice(index, 1)
     },
     handleInfo(resident_id) {
       fetchInfo(resident_id).then(response => {

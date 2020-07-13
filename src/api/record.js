@@ -8,6 +8,14 @@ export function fetchRecord(id) {
   })
 }
 
+export function deleteRecord(id) {
+  return request({
+    url: '/record/delete',
+    method: 'post',
+    params: id
+  })
+}
+
 export function fetchRecordList(query) {
   return request({
     url: '/record/list',
