@@ -28,7 +28,7 @@ export function deleteAdmin(id) {
   return request({
     url: '/account/admin/delete',
     method: 'post',
-    params: id
+    params: { id: id }
   })
 }
 
@@ -60,7 +60,7 @@ export function deleteInspector(id) {
   return request({
     url: '/account/inspector/delete',
     method: 'post',
-    params: id
+    params: { id: id }
   })
 }
 
@@ -68,7 +68,7 @@ export function resetOpenId(id) {
   return request({
     url: '/account/inspector/reset-openid',
     method: 'post',
-    params: id
+    params: { id: id }
   })
 }
 
@@ -80,34 +80,34 @@ export function fetchResident(query) {
   })
 }
 
-export function deleteResident(query) {
+export function deleteResident(id) {
   return request({
     url: '/account/resident/delete',
     method: 'post',
-    params: query
+    params: { id: id }
   })
 }
 
-export function lockResident(query) {
+export function lockResident(id) {
   return request({
     url: '/account/resident/lock',
     method: 'post',
-    params: query
+    params: { id: id }
   })
 }
 
-export function unlockResident(query) {
+export function unlockResident(id) {
   return request({
     url: '/account/resident/unlock',
     method: 'post',
-    params: query
+    params: { id: id }
   })
 }
 
-export function fetchInfo(user_id) {
+export function fetchInfo(id) {
   return request({
     url: '/account/resident/info',
     method: 'get',
-    params: user_id
+    params: { id: id }
   })
 }
