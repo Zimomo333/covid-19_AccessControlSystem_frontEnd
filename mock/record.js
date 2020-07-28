@@ -9,8 +9,8 @@ for (let i = 0; i < count; i++) {
     id: '@increment',
     time: +Mock.Random.date('T'),
     temperature: '@integer(37, 39)',
-    resident_id: '@increment',
-    inspector_id: '@increment'
+    user_id: '@increment',
+    inspectors_id: '@increment'
   }))
 }
 
@@ -20,7 +20,7 @@ for (let i = 0; i < 10; i++) {
     username: '@first',
     time: +Mock.Random.date('T'),
     temperature: '@integer(37, 39)',
-    inspector_id: '@increment'
+    inspectors_id: '@increment'
   }))
 }
 

@@ -12,13 +12,13 @@ for (let i = 0; i < count; i++) {
   }))
   inspectorList.push(Mock.mock({
     id: '@increment',
-    'open_id|1000000000-9000000000': 0,
+    'openid|1000000000-9000000000': 0,
     username: '@first',
     'password|1000000-9000000': 0
   }))
   residentList.push(Mock.mock({
     id: '@increment',
-    'open_id|1000000000-9000000000': 0,
+    'openid|1000000000-9000000000': 0,
     username: '@first',
     'password|1000000-9000000': 0,
     name: '@first',
@@ -34,7 +34,7 @@ for (let i = 0; i < count; i++) {
 
 const info = Mock.mock({
   id: '@increment',
-  'open_id|1000000000-9000000000': 0,
+  'openid|1000000000-9000000000': 0,
   username: '@first',
   'password|1000000-9000000': 0,
   name: '@first',
