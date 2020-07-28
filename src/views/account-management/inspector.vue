@@ -36,7 +36,7 @@
       </el-table-column>
       <el-table-column label="Open_id" width="400px" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.open_id }}</span>
+          <span>{{ row.openid }}</span>
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center" width="400" class-name="small-padding fixed-width">
@@ -265,7 +265,7 @@ export default {
             duration: 2000
           })
           const index = this.list.findIndex(v => v.id === row.id)
-          row.open_id = ''
+          row.openid = ''
           this.list.splice(index, 1, row)
         } else {
           this.$notify({
@@ -339,13 +339,13 @@ export default {
     handleDownload() {
       this.downloadLoading = true
       import('@/vendor/Export2Excel').then(excel => {
-        const tHeader = ['timestamp', 'title', 'type', 'importance', 'status']
-        const filterVal = ['timestamp', 'title', 'type', 'importance', 'status']
+        const tHeader = ['检查员id', '用户名']
+        const filterVal = ['id', 'username']
         const data = this.formatJson(filterVal)
         excel.export_json_to_excel({
           header: tHeader,
           data,
-          filename: 'table-list'
+          filename: 'inspector-table'
         })
         this.downloadLoading = false
       })

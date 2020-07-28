@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: 'Vue Admin Template',
+  title: '智慧社区电子出入证信息管理系统',
 
   /**
    * @type {boolean} true | false

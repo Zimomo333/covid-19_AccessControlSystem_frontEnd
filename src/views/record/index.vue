@@ -50,12 +50,12 @@
       </el-table-column>
       <el-table-column label="住户id(点击查看住户)" width="250px" align="center">
         <template slot-scope="{row}">
-          <span class="link-type" @click="handleInfo(row.resident_id)">{{ row.resident_id }}</span>
+          <span class="link-type" @click="handleInfo(row.user_id)">{{ row.user_id }}</span>
         </template>
       </el-table-column>
       <el-table-column label="检查员id" width="250px" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.inspector_id }}</span>
+          <span>{{ row.inspectors_id }}</span>
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center" width="200" class-name="small-padding fixed-width">
@@ -72,37 +72,37 @@
     <el-dialog :visible.sync="dialogInfoVisible" title="详细信息">
       <el-form v-if="temp!=null" label-position="right" label-width="100px" style="width: 500px;margin-left: 200px;" size="small">
         <el-form-item label="头像">
-          <el-avatar :size="50" :src="temp[0].photo"></el-avatar>
+          <el-avatar :size="50" :src="temp.photo"></el-avatar>
         </el-form-item>
         <el-form-item label="Open_id">
-          <span style="margin-left:15px;">{{ temp[0].open_id }}</span>
+          <span style="margin-left:15px;">{{ temp.openid }}</span>
         </el-form-item>
         <el-form-item label="Id">
-          <span style="margin-left:15px;">{{ temp[0].id }}</span>
+          <span style="margin-left:15px;">{{ temp.id }}</span>
         </el-form-item>
         <el-form-item label="用户名">
-          <span style="margin-left:15px;">{{ temp[0].username }}</span>
+          <span style="margin-left:15px;">{{ temp.username }}</span>
         </el-form-item>
         <el-form-item label="姓名">
-          <span style="margin-left:15px;">{{ temp[0].name }}</span>
+          <span style="margin-left:15px;">{{ temp.name }}</span>
         </el-form-item>
         <el-form-item label="性别">
-          <span style="margin-left:15px;">{{ temp[0].sex | sexFilter }}</span>
+          <span style="margin-left:15px;">{{ temp.sex | sexFilter }}</span>
         </el-form-item>
         <el-form-item label="身份证号码">
-          <span style="margin-left:15px;">{{ temp[0].identity_card }}</span>
+          <span style="margin-left:15px;">{{ temp.identity_card }}</span>
         </el-form-item>
         <el-form-item label="住址号">
-          <span style="margin-left:15px;">{{ temp[0].house_no }}</span>
+          <span style="margin-left:15px;">{{ temp.house_no }}</span>
         </el-form-item>
         <el-form-item label="健康状态">
-          <span style="margin-left:15px;">{{ temp[0].health_status | statusFilter }}</span>
+          <span style="margin-left:15px;">{{ temp.health_status | statusFilter }}</span>
         </el-form-item>
         <el-form-item label="出入次数">
-          <span style="margin-left:15px;">{{ temp[0].access_times }}</span>
+          <span style="margin-left:15px;">{{ temp.access_times }}</span>
         </el-form-item>
         <el-form-item label="锁定状态">
-          <span style="margin-left:15px;">{{ temp[0].is_locked | lockedFilter }}</span>
+          <span style="margin-left:15px;">{{ temp.is_locked | lockedFilter }}</span>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -233,13 +233,13 @@ export default {
     handleDownload() {
       this.downloadLoading = true
       import('@/vendor/Export2Excel').then(excel => {
-        const tHeader = ['timestamp', 'title', 'type', 'importance', 'status']
-        const filterVal = ['timestamp', 'title', 'type', 'importance', 'status']
+        const tHeader = ['记录id', '日期', '体温', '住户id', '检查员id']
+        const filterVal = ['id', 'time', 'temperature', 'user_id', 'inspectors_id']
         const data = this.formatJson(filterVal)
         excel.export_json_to_excel({
           header: tHeader,
           data,
-          filename: 'table-list'
+          filename: 'record-table'
         })
         this.downloadLoading = false
       })

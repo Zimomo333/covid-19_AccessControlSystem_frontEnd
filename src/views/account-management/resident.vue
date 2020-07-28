@@ -72,7 +72,7 @@
           <el-avatar :size="50" :src="list[index].photo" />
         </el-form-item>
         <el-form-item label="Open_id">
-          <span style="margin-left:15px;">{{ list[index].open_id }}</span>
+          <span style="margin-left:15px;">{{ list[index].openid }}</span>
         </el-form-item>
         <el-form-item label="Id">
           <span style="margin-left:15px;">{{ list[index].id }}</span>
@@ -116,7 +116,7 @@
           </template>
         </el-table-column>
         <el-table-column prop="temperature" label="温度" align="center" />
-        <el-table-column prop="inspector_id" label="检查员id" align="center" />
+        <el-table-column prop="inspectors_id" label="检查员id" align="center" />
       </el-table>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="dialogRcVisible = false">Confirm</el-button>
@@ -288,13 +288,13 @@ export default {
     handleDownload() {
       this.downloadLoading = true
       import('@/vendor/Export2Excel').then(excel => {
-        const tHeader = ['timestamp', 'title', 'type', 'importance', 'status']
-        const filterVal = ['timestamp', 'title', 'type', 'importance', 'status']
+        const tHeader = ['Id','Open_id', '姓名', '用户名', '性别', '身份证号码', '住址号', '健康状态', '出入次数', '锁定状态']
+        const filterVal = ['id', 'open_id', 'name', 'username', 'sex', 'identity_card', 'house_no', 'health_status', 'access_times', 'is_locked']
         const data = this.formatJson(filterVal)
         excel.export_json_to_excel({
           header: tHeader,
           data,
-          filename: 'table-list'
+          filename: 'resident-table'
         })
         this.downloadLoading = false
       })

@@ -29,7 +29,6 @@ export default {
     option() {
       this.query.option = this.option
       analysisRecord(this.query).then(res => {
-        console.log(res)
         var myChart = this.$echarts.init(document.getElementById('main'))
         var option = {
           title: {

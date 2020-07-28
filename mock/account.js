@@ -4,7 +4,6 @@ const adminList = []
 const inspectorList = []
 const residentList = []
 const count = 50
-const info = []
 
 for (let i = 0; i < count; i++) {
   adminList.push(Mock.mock({
@@ -33,7 +32,7 @@ for (let i = 0; i < count; i++) {
   }))
 }
 
-info.push(Mock.mock({
+const info = Mock.mock({
   id: '@increment',
   'open_id|1000000000-9000000000': 0,
   username: '@first',
@@ -46,7 +45,7 @@ info.push(Mock.mock({
   'health_status|0-10': 0,
   'access_times|50-100': 0,
   is_locked: '@boolean'
-}))
+})
 
 module.exports = [
   {
@@ -283,6 +282,6 @@ module.exports = [
         }
       }
     }
-  },
+  }
 ]
 

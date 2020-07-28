@@ -6,7 +6,6 @@
 import { analysisHealth } from '@/api/analysis'
 
 export default {
-  name: 'HelathAnalysis',
   data() {
     return {
     }
@@ -30,7 +29,7 @@ export default {
         },
         series: [
           {
-            name: '访问来源',
+            name: '健康状况',
             type: 'pie',
             radius: ['50%', '70%'],
             avoidLabelOverlap: false,
@@ -49,11 +48,11 @@ export default {
               show: false
             },
             data: [
-              { value: res.data.health_count[0], name: '危险' },
+              { value: res.data.health_count[1], name: '危险' },
               { value: 0, name: '' },
               { value: 0, name: '' },
               { value: 0, name: '' },
-              { value: res.data.health_count[1], name: '健康' }
+              { value: res.data.health_count[0], name: '健康' }
             ]
           }
         ]

@@ -4,7 +4,7 @@ export function fetchRecord(id) {
   return request({
     url: '/record/recent',
     method: 'get',
-    params: id
+    params: { id: id }
   })
 }
 
