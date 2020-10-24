@@ -18,7 +18,7 @@
 
 2. 主页仪表板
 
-   <img src="https://raw.githubusercontent.com/Zimomo333/covid-19_AccessControlSystem_frontEnd/master/picture/login.png" />
+   <img src="https://raw.githubusercontent.com/Zimomo333/covid-19_AccessControlSystem_frontEnd/master/picture/index.png" />
 
 3. 住户管理列表
 
